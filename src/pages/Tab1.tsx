@@ -18,11 +18,12 @@ import '@ionic/react/css/core.css';
 
 import BmiControls from '../components/BmiControls';
 import BmiResult from '../components/BmiResult';
-import { setErrorHandler } from 'ionicons/dist/types/stencil-public-runtime';
+import InputControl from '../components/InputControls';
 
 const Tab1: React.FC = () => {
   const [calculatedBmi, setCalculatedBmi] = useState<number>();
-  const [error, serError] = useState<string>();
+  const [error, setError] = useState<string>();
+  const [calcUnits, setCalcUnits] = useState<''>();
 
   const weightInputRef = useRef<HTMLIonInputElement>(null);
   const heightInputRef = useRef<HTMLIonInputElement>(null);
@@ -50,7 +51,7 @@ const Tab1: React.FC = () => {
   };
 
   const clearError = () => {
-    setErrorHandler('');
+    setError('');
   };
 
   return (
@@ -59,7 +60,7 @@ const Tab1: React.FC = () => {
       <IonAlert
         isOpen={!!error}
         message={error}
-        buttons={[{ TEXT: 'Okay', handler: clearError }]}
+        buttons={[{ text: 'Okay', handler: clearError }]}
       />
       <IonPage>
         <IonHeader>
@@ -69,6 +70,11 @@ const Tab1: React.FC = () => {
         </IonHeader>
         <IonContent fullscreen className="ion-padding">
           <IonGrid>
+            <IonRow>
+              <IonCol>
+                <InputControl selectedValue="mkg" />
+              </IonCol>
+            </IonRow>
             <IonRow>
               <IonCol>
                 <IonItem>
